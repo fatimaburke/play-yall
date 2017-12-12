@@ -1,0 +1,10 @@
+<h1>Listing all streams</h1>
+
+<% @streams.each do |stream| %>
+  <div>
+    Title: <%= stream.title %><br>
+    <%= link_to "Watch", stream_path(stream) %> | <%= link_to "Edit", edit_stream_path(stream) %> | <%= link_to 'Delete', stream_path(stream),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %>
+  </div>
+<% end %>

@@ -1,0 +1,38 @@
+<%= form_with model: @stream, local: true do |f| %>
+
+  <% if @stream.errors.any? %>
+    <div class="error_explanation">
+      <%= pluralize(@stream.errors.count, "error") %> prohibited this stream from being saved:
+      <br>
+      <ul>
+        <% @stream.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="form-group">
+    <%= f.label "Description" %>
+    <%= f.text_area :desc %>
+  </div>
+  <div class="form-group">
+    <%= f.label :instrument %>
+    <%= f.text_field :instrument %>
+  </div>
+  <div class="form-group">
+    <%= f.label :genre %>
+    <%= f.text_field :genre %>
+  </div>
+  <div class="form-group">
+    <%= f.label :location %>
+    <%= f.text_field :location %>
+  </div>
+  <div class="form-group">
+    <%= f.submit %>
+  </div>
+<% end %>
