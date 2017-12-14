@@ -17,6 +17,9 @@ group :development do
   gem 'sqlite3'
 end
 
+#jQuery
+gem 'jquery-rails'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
