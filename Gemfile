@@ -8,8 +8,15 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
-# replace gem "sqlite3" with
-gem 'pg', '~> 0.21.0'
+# use gem "sqlite3" in development and "pg" in production
+group :production do
+  gem 'pg', '~> 0.21.0'
+end
+
+group :development do
+  gem 'sqlite3'
+end
+
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
