@@ -6,14 +6,45 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://cdn.pubnub.com/pubnub-3.7.14.min.js"></script>
+    <script src="https://cdn.pubnub.com/webrtc/webrtc.js"></script>
+    <script src="https://cdn.pubnub.com/webrtc/rtc-controller.js"></script>
   </head>
 
   <body>
+    <div class="container">
+
+
     <nav>
       <%= link_to "Home", "/" %>
       <%= link_to "Streams", streams_path %>
       <%= link_to "Profile", "/" %>
     </nav>
     <%= yield %>
+      <script>
+        function watch(form){
+          var num = form.number.value;  // Stream to join
+          var phone = window.phone = PHONE({
+              number        : "Viewer" + Math.floor(Math.random()*100), // Random name
+              publish_key   : 'pub-c-25c078da-f19a-4f2c-988e-4e41ba6fd758', // Your Pub Key
+              subscribe_key : 'sub-c-f043073e-e107-11e7-92f7-1642a2bc7286', // Your Sub Key
+              oneway        : true	// One way streaming enabled
+          });
+          var ctrl = window.ctrl = CONTROLLER(phone, true);
+          ctrl.ready(function(){
+            ctrl.isStreaming(num, function(isOn){
+              if (isOn) ctrl.joinStream(num);
+              else alert("User is not streaming!");
+            });
+          });
+          ctrl.receive(function(session){
+              session.connected(function(session){ video_out.appendChild(session.video); });
+          });
+          ctrl.streamPresence(function(m){ here_now.innerHTML=m.occupancy; });
+          return false;  // Prevent form from submitting
+          }
+      </script>
+
+    </div>
   </body>
 </html>
