@@ -9,6 +9,11 @@
   </head>
 
   <body>
+    <nav>
+      <%= link_to "Home", "/" %>
+      <%= link_to "Streams", streams_path %>
+      <%= link_to "Profile", "/" %>
+    </nav>
     <%= yield %>
   </body>
 </html>
