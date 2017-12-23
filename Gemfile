@@ -17,8 +17,23 @@ group :development do
   gem 'sqlite3'
 end
 
+#Add for login/logout authentication and user Model
+gem 'devise'
+
+#Add for avatars and thumbnails
+gem "paperclip", "~> 5.0.0"
+
 #jQuery
 gem 'jquery-rails'
+
+#bootstrap
+gem 'bootstrap', '~> 4.0.0.alpha3'
+
+#redis
+gem 'redis', '~> 3.2'
+
+#opentok
+gem 'opentok'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
