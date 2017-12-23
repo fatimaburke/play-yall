@@ -1,4 +1,9 @@
-<%= form_with model: @stream, local: true do |f| %>
+<%= form_with model: @stream,
+              local: true,
+              # html: { multipart: true },
+              html: { multipart: true, onsubmit: "return stream(this);", target: "_blank" },
+              name: "streamForm",
+              id: "stream" do |f| %>
 
   <% if @stream.errors.any? %>
     <div class="error_explanation">
@@ -13,8 +18,12 @@
   <% end %>
 
   <div class="form-group">
+    <%= f.file_field :thumbnail %>
+  </div>
+
+  <div class="form-group">
     <%= f.label :title %>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, id: "streamname", placeholder: "Pick a Stream Name" %>
   </div>
   <div class="form-group">
     <%= f.label "Description" %>
@@ -33,6 +42,6 @@
     <%= f.text_field :location %>
   </div>
   <div class="form-group">
-    <%= f.submit %>
+    <%= f.submit "Begin Streaming", :name => "stream_submit" %>
   </div>
 <% end %>
