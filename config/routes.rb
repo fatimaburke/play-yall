@@ -2,9 +2,12 @@ Rails.application.routes.draw do
   devise_for :users
   get 'home/index'
 
-  resources :streams, only: [:new, :create, :show, :index, :edit]
+  resources :streams, only: [:new, :create, :show, :index, :edit] do
+    resources :messages
+  end
+
   resources :users
-  resources :messages
+
 
   root 'home#index'
 

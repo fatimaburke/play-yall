@@ -3,12 +3,12 @@ class MessagesController < ApplicationController
 
   def create
     @message = current_user.messages.build(message_params)
-    @message.save!
+    @message.save
   end
 
   private
 
   def message_params
-    params.require(:message).permit(:body)
+    params.require(:message).permit(:body, :stream_id)
   end
 end

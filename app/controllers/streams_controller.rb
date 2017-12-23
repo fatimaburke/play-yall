@@ -6,10 +6,9 @@ before_action :authenticate_user!, :except => [:show, :index]
   end
 
   def show
-    # @stream = Stream.find(params[:id])
-    @stream = Stream.includes(:messages).find_by(id: params[:id])
-    @message = Message.new
+    @stream = Stream.find_by_id(params[:id])
     @messages = Message.all
+    # @message = Message.new
     opentok = OpenTok::OpenTok.new '46027242', '3f2d5e712234b65a45a0d9c34839e9f59aa870d1'
     @session = opentok.create_session
     @session_id = @session.session_id
@@ -26,9 +25,7 @@ before_action :authenticate_user!, :except => [:show, :index]
   end
 
   def create
-    # @stream = Stream.new(stream_params)
     @stream = current_user.streams.new(stream_params)
-    # @stream = current_user.streams.build(stream_params)
 
     if @stream.save
       flash[:success] = 'New Stream Added'

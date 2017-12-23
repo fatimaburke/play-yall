@@ -3,19 +3,35 @@
    <%#= submit_tag 'send', data: { disable_with: false } %>
 <%# end %>
 
+<%# model: @message, %>
 
-<%= form_with model: @message,
+
+<%= form_with model: stream_messages(@stream),
               local: true,
               html: { autocomplete: 'off' },
               name: "streamForm",
               class: 'chat_form' do |f| %>
+
+  <% if @message.errors.any? %>
+    <div class="error_explanation">
+      <%= pluralize(@message.errors.count, "error") %> prohibited this message from being saved:
+      <br>
+      <ul>
+        <% @message.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
   <%= f.text_field 'message', id: 'chat_msg', autocomplete: 'off' %>
   <%= f.submit 'send', data: { disable_with: false } %>
 
 <% end %>
 
 
-<script src='//static.opentok.com/v2/js/opentok.min.js'></script>
+<!-- <script src='//static.opentok.com/v2/js/opentok.min.js'></script>
 <script type="text/javascript">
  $(document).ready(function(){
    var apiKey = '46027242'
@@ -60,7 +76,7 @@
    });
 });
 
-</script>
+</script> -->
 
 <div id="chats">
   <ul class="chat_msg">
