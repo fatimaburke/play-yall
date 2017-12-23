@@ -2,9 +2,12 @@
 
 <% @streams.each do |stream| %>
   <div>
+    <%= image_tag stream.thumbnail.url(:medium) %>
     Title: <%= stream.title %><br>
     <%= link_to "Watch", stream_path(stream) %> | <%= link_to "Edit", edit_stream_path(stream) %> | <%= link_to 'Delete', stream_path(stream),
               method: :delete,
               data: { confirm: 'Are you sure?' } %>
   </div>
 <% end %>
+<br>
+<%= link_to "Start Streaming", new_stream_path %>
