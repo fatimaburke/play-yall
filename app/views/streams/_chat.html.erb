@@ -1,0 +1,71 @@
+<%#= form_tag '#', class: 'chat_form', html: { autocomplete: 'off' } do %>
+   <%#= text_field_tag 'message', nil, id: 'chat_msg', autocomplete: 'off' %>
+   <%#= submit_tag 'send', data: { disable_with: false } %>
+<%# end %>
+
+
+<%= form_with model: @message,
+              local: true,
+              html: { autocomplete: 'off' },
+              name: "streamForm",
+              class: 'chat_form' do |f| %>
+  <%= f.text_field 'message', id: 'chat_msg', autocomplete: 'off' %>
+  <%= f.submit 'send', data: { disable_with: false } %>
+
+<% end %>
+
+
+<script src='//static.opentok.com/v2/js/opentok.min.js'></script>
+<script type="text/javascript">
+ $(document).ready(function(){
+   var apiKey = '46027242'
+   // use same session_id and token that we have generated above.
+   var sessionID = '<%= @session_id %>'
+   var token = '<%= @token %>'
+   var session = OT.initSession(apiKey, sessionID);
+   session.connect(token, function(error) {
+     if (error) {
+       console.log('Unable to connect: ', error.message);
+     }
+     else {console.log('Connected to the session.');}
+   });
+   // send message to text_chat channel using signal method on form submit
+   $(".chat_form").submit(function(event) {
+      event.preventDefault();
+      if($('#chat_msg').val() != ""){
+         session.signal({
+            data:$('#chat_msg').val(),
+            type:"text_chat"
+            },
+            function(error) {
+              $('#chat_msg').val('');
+            }
+          );
+      }
+   });
+   // listen for the signal on text_chat channel
+   // in order to receive message sent to channel text_chat
+   session.on('signal:text_chat', function(event) {
+      message = event.data
+      // do some stuff here with message,
+      // maybe show in chat window/store in database if needed
+      // console.log(message)
+      $.ajax({
+        data: { message },
+        type: 'post',
+        url: '#',
+        dataType: "html"
+      })
+      $('.chat_msg').append('<li>'+message+'</li>')
+   });
+});
+
+</script>
+
+<div id="chats">
+  <ul class="chat_msg">
+<% @messages.each do |msg| %>
+ <%= msg.body %>
+<% end %>
+  </ul>
+</div>
