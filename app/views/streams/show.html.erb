@@ -1,3 +1,7 @@
+<h1><%= @stream.title %></h1>
+
+<%= render 'chat' %>
+
 <div>Title: <br><%= @stream.title %></div>
 <div>Description: <br><%= @stream.desc %></div>
 <div>Genre: <br><%= @stream.genre %></div>
@@ -5,12 +9,6 @@
 <div>Location: <br><%= @stream.location %></div>
 
 <div id="vid-box"><!-- Stream goes here --></div>
-
-<form name="streamForm" id="stream" action="#" onsubmit="return stream(this);">
-    <input type="text" name="streamname" id="streamname" placeholder="Pick a stream name!" />
-    <input type="submit" name="stream_submit" value="Stream">
-    <div id="stream-info">Watching: <span id="here-now">0</span></div>
-</form>
 
 <form name="watchForm" id="watch" action="#" onsubmit="return watch(this);">
 	<input type="text" name="number" placeholder="Enter stream to join!" />
@@ -22,3 +20,5 @@
 	Generate Embed: <button onclick="genEmbed(400,600)">Tall</button><button onclick="genEmbed(600,400)">Wide</button><button onclick="genEmbed(500,500)">Square</button><br>
 	<div id="embed-code"></div>
 </div>
+
+<%= link_to "Start Streaming", new_stream_path %>
