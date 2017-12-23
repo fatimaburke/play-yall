@@ -1,10 +1,20 @@
 class StreamsController < ApplicationController
+before_action :authenticate_user!, :except => [:show, :index]
+
   def index
     @streams = Stream.all
   end
 
   def show
-    @stream = Stream.find(params[:id])
+    # @stream = Stream.find(params[:id])
+    @stream = Stream.includes(:messages).find_by(id: params[:id])
+    @message = Message.new
+    @messages = Message.all
+    opentok = OpenTok::OpenTok.new '46027242', '3f2d5e712234b65a45a0d9c34839e9f59aa870d1'
+    @session = opentok.create_session
+    @session_id = @session.session_id
+    # generate opentok token
+    @token = @session.generate_token
   end
 
   def new
@@ -16,9 +26,12 @@ class StreamsController < ApplicationController
   end
 
   def create
-    @stream = Stream.new(stream_params)
+    # @stream = Stream.new(stream_params)
+    @stream = current_user.streams.new(stream_params)
+    # @stream = current_user.streams.build(stream_params)
 
     if @stream.save
+      flash[:success] = 'New Stream Added'
       redirect_to @stream
     else
       render 'new'
@@ -42,9 +55,10 @@ class StreamsController < ApplicationController
     redirect_to streams_path
   end
 
+
   private
     def stream_params
-      params.require(:stream).permit(:title, :desc, :location, :genre, :instrument)
+      params.require(:stream).permit(:title, :desc, :location, :genre, :instrument, :thumbnail)
     end
 
 end
