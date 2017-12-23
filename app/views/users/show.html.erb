@@ -1,0 +1,13 @@
+<h1>Hey <%= @user.username %></h1>
+
+<%= image_tag @user.avatar.url(:medium) %>
+Email: <%= @user.email %>
+Bio: <%= @user.bio %>
+Location: <%= @user.location %>
+Primary Instrument: <%= @user.instrument %>
+Primary Genre: <%= @user.genre %>
+Website: <%= link_to @user.website, "http://#{@user.website}" %>
+
+<% if current_user == @user %>
+<%= link_to "Edit", edit_user_path() %>
+<% end %>
