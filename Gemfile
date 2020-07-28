@@ -7,27 +7,30 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.4'
+gem 'rails', '~> 6.0', '>= 6.0.3.2'
 # use gem "sqlite3" in development and "pg" in production
 group :production do
-  gem 'pg', '~> 0.21.0'
+  gem 'pg', '~> 1.2', '>= 1.2.3'
 end
 
 group :development do
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1.4', '>= 1.4.2'
 end
+
+#Added in 2020
+gem 'actionpack', '~> 6.0', '>= 6.0.3.2'
 
 #Add for login/logout authentication and user Model
 gem 'devise', '~> 4.7', '>= 4.7.2'
 
 #Add for avatars and thumbnails
-gem "paperclip", "~> 5.0.0"
+gem 'paperclip', '~> 6.1'
 
 #jQuery
 gem 'jquery-rails'
 
 #bootstrap
-gem 'bootstrap', '~> 4.0.0.alpha3'
+gem 'bootstrap', '~> 4.5'
 
 #redis
 gem 'redis', '~> 3.2'
