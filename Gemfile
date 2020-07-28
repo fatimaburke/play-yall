@@ -18,7 +18,7 @@ group :development do
 end
 
 #Add for login/logout authentication and user Model
-gem 'devise'
+gem 'devise', '~> 4.7', '>= 4.7.2'
 
 #Add for avatars and thumbnails
 gem "paperclip", "~> 5.0.0"
