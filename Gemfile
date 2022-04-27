@@ -7,7 +7,7 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1'
+gem 'rails', '~> 7.0'
 # use gem "sqlite3" in development and "pg" in production
 group :production do
   gem 'pg', '~> 1.2', '>= 1.2.3'
@@ -18,7 +18,7 @@ group :development do
 end
 
 #Added in 2020
-gem 'actionpack', '~> 6.1'
+gem 'actionpack', '~> 7.0'
 
 #Add for login/logout authentication and user Model
 gem 'devise', '~> 4.7', '>= 4.7.2'
